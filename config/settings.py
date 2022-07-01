@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Local apps
     'core',
+    # Django Packages
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -128,5 +130,15 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Substituting a custom User model
+# https://docs.djangoproject.com/en/3.2/ref/settings/#std-setting-AUTH_USER_MODEL
 
 AUTH_USER_MODEL = 'core.CustomUser'
+
+# Django rest framework settings
+# https://www.django-rest-framework.org/api-guide/settings/
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
