@@ -32,12 +32,15 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv(delimiter=','))
 # Application definition
 
 INSTALLED_APPS = [
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Local apps
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +127,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTH_USER_MODEL = 'core.CustomUser'
