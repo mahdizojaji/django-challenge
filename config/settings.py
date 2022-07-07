@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'core',
     # Django Packages
     'rest_framework',
+    'rest_framework.authtoken',
+    # Local Packages
+    'extensions',
 ]
 
 MIDDLEWARE = [
@@ -141,4 +144,15 @@ AUTH_USER_MODEL = 'core.CustomUser'
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
+}
+
+# Ghasedak settings
+# https://ghasedak.me/docs#VerificationBox
+
+SMS = {
+    "API_KEY": config("SMS_API_KEY"),
+    "OTP_LENGTH": config("SMS_OTP_LENGTH", cast=int),
+    "OTP_EXPIRE": config("SMS_OTP_EXPIRE", cast=int),
+    "DEBUG_MODE": config("SMS_DEBUG_MODE", cast=bool),
+    "TEMPLATE_NAME": config("SMS_TEMPLATE_NAME"),
 }
