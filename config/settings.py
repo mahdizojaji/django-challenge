@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Local apps
     'core',
+    'authentication',
     # Django Packages
     'rest_framework',
     'rest_framework.authtoken',
@@ -109,6 +110,24 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Django configuring logging
+# https://docs.djangoproject.com/en/3.2/topics/logging/
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG' if DEBUG else 'INFO',
+    },
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -156,3 +175,5 @@ SMS = {
     "DEBUG_MODE": config("SMS_DEBUG_MODE", cast=bool),
     "TEMPLATE_NAME": config("SMS_TEMPLATE_NAME"),
 }
+
+PHONE_NUMBER_PATTERN = r'^(\+989\d{9})$'
