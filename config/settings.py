@@ -134,7 +134,7 @@ LOGGING = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
@@ -195,3 +195,14 @@ SMS = {
 }
 
 PHONE_NUMBER_PATTERN = r'^(\+989\d{9})$'
+
+
+# Celery config
+# https://docs.celeryq.dev/en/stable/userguide/configuration.html
+
+BROKER_URL = config('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND')
+CELERY_ACCEPT_CONTENT = config('CELERY_ACCEPT_CONTENT', cast=Csv(delimiter=',', strip='"'))
+CELERY_SERIALIZER = config('CELERY_TASK_SERIALIZER')
+CELERY_RESULT_SERIALIZER = config('CELERY_RESULT_SERIALIZER')
+CELERY_TIMEZONE = config('CELERY_TIMEZONE')
