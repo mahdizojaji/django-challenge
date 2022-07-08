@@ -172,7 +172,6 @@ REST_FRAMEWORK = {
         # "rest_framework.filters.OrderingFilter",
         "rest_framework.filters.SearchFilter",
     ),
-    'DATETIME_FORMAT': '%s',
 }
 
 REST_USE_JWT = True
