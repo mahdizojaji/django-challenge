@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # Local apps
     'core',
     'authentication',
+    'federation',
     # Django Packages
     'rest_framework',
     'rest_framework.authtoken',
