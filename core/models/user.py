@@ -52,6 +52,10 @@ class CustomUser(BaseModel, AbstractUser):
         verbose_name=_('Last time of otp sent'),
         null=True, blank=True,
     )
+    is_federation_agent = models.BooleanField(
+        verbose_name=_('Is federation agent?'),
+        default=False,
+    )
     USERNAME_FIELD = "phone_number"
     REQUIRED_FIELDS = []
 
