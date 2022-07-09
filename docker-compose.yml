@@ -1,0 +1,67 @@
+version: '3.8'
+
+x-base:
+  &base
+  env_file:
+    - .env
+  networks:
+    - TweetTel
+  restart: unless-stopped
+
+x-django-app:
+  &main-app-image
+  <<: *base
+  build:
+    context: .
+    network: host
+    dockerfile: Dockerfile
+  volumes:
+    - StaticFiles:/app/static
+
+
+services:
+  postgres:
+    <<: *base
+    image: postgres
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  nginx:
+    <<: *base
+    image: nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./config/nginx/conf.d/:/etc/nginx/conf.d/
+      - StaticFiles:/app/static
+    depends_on:
+      - django
+
+  rabbitmq:
+    <<: *base
+    image: rabbitmq:3-management
+
+  django:
+    <<: *main-app-image
+    command: bash -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn config.wsgi:application --bind :8000"
+    expose:
+      - 8000
+    depends_on:
+      - postgres
+      - redis
+
+  celery:
+    <<: *main-app-image
+    command: bash -c "celery -A config worker -l INFO --autoscale 10,3"
+    environment:
+      - C_FORCE_ROOT=true
+    depends_on:
+      - rabbitmq
+      - django
+
+
+networks:
+  TweetTel:
+
+volumes:
+  StaticFiles:
